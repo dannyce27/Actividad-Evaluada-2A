@@ -8,15 +8,15 @@ employeesController.getEmployees = async (req, res) => {
 };
 
 employeesController.createEmployee = async (req, res) => {
-    const {nombre, correo, contrasenia, telefono, direccion, puesto, fecha_contratacion, salario, DUI} = req.body;
-    const newEmployee = new employeesModel({nombre, correo, contrasenia, telefono, direccion, puesto, fecha_contratacion, salario, DUI});
+    const { nombre, correo, contrasenia, telefono, direccion, puesto, fecha_contratacion, salario, DUI } = req.body;
+    const newEmployee = new employeesModel({ nombre, correo, contrasenia, telefono, direccion, puesto, fecha_contratacion, salario, DUI });
     await newEmployee.save();
-    res.json({message: "Employee saved"})
+    res.json({ message: "Employee saved" })
 
 }
 
 employeesController.deleteEmployee = async (req, res) => {
-    const deleteEmployee  = await employeesModel.findByIdAndDelete(req.params.id);
+    const deleteEmployee = await employeesModel.findByIdAndDelete(req.params.id);
     if (!deletedemployee) {
         return res.status(404).json({ message: "employee dont find" });
     }
@@ -24,22 +24,22 @@ employeesController.deleteEmployee = async (req, res) => {
 }
 
 employeesController.updateEmployee = async (req, res) => {
-    const {nombre, correo, contrasenia, telefono, direccion, puesto, fecha_contratacion, salario, DUI} = req.body;
+    const { nombre, correo, contrasenia, telefono, direccion, puesto, fecha_contratacion, salario, DUI } = req.body;
     await employeesModel.findByIdAndUpdate(
         req.params.id, {
-            nombre,
-            correo,
-            contrasenia,
-            telefono,
-            direccion, 
-            puesto, 
-            fecha_contratacion,
-            salario,
-            DUI
-        },
-        {new: true}
+        nombre,
+        correo,
+        contrasenia,
+        telefono,
+        direccion,
+        puesto,
+        fecha_contratacion,
+        salario,
+        DUI
+    },
+        { new: true }
     );
-    res.json({message: "employee updated"});
+    res.json({ message: "employee updated" });
 };
 
 export default employeesController;

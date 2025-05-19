@@ -9,15 +9,15 @@ customersController.getcustomers = async (req, res) => {
 
 // INSERT
 customersController.createcustomers = async (req, res) => {
-  const {  nombre, correo, constrasenia, telefono, direccion, DUI } = req.body;
-  const newcustomers = new customersModel({ nombre, correo, constrasenia, telefono, direccion, DUI});
+  const { nombre, correo, constrasenia, telefono, direccion, DUI } = req.body;
+  const newcustomers = new customersModel({ nombre, correo, constrasenia, telefono, direccion, DUI });
   await newcustomers.save();
-  res.json({ message: "customer save" });
+  res.json({ message: "customer saved" });
 };
 
 // DELETE
 customersController.deletecustomers = async (req, res) => {
-const deletedcustomers = await customersModel.findByIdAndDelete(req.params.id);
+  const deletedcustomers = await customersModel.findByIdAndDelete(req.params.id);
   if (!deletedcustomers) {
     return res.status(404).json({ message: "customer dont find" });
   }
@@ -27,22 +27,22 @@ const deletedcustomers = await customersModel.findByIdAndDelete(req.params.id);
 // UPDATE
 customersController.updatecustomers = async (req, res) => {
   // Solicito todos los valores
-  const {  nombre, correo, constrasenia, telefono, direccion, DUI } = req.body;
+  const { nombre, correo, constrasenia, telefono, direccion, DUI } = req.body;
   // Actualizo
   await customersModel.findByIdAndUpdate(
     req.params.id,
     {
-        nombre, 
-        correo, 
-        constrasenia, 
-        telefono, 
-        direccion, 
-        DUI
+      nombre,
+      correo,
+      constrasenia,
+      telefono,
+      direccion,
+      DUI
     },
     { new: true }
   );
   // muestro un mensaje que todo se actualizo
-  res.json({ message: "customer update" });
+  res.json({ message: "customer updated" });
 };
 
 export default customersController;

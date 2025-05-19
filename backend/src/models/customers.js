@@ -25,14 +25,8 @@ const customersSchema = new Schema ({
     DUI: {
         type: String,
         require: true,
-    },
-    isVerified: {
-        type: Boolean,
-        require: true,
     }
     
-
-
 }, {
     timestamps: true,
     strict: false, 

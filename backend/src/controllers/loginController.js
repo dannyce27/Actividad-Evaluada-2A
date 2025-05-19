@@ -1,6 +1,6 @@
 //Importamos los modelos
 import customersModel from "../models/customers.js";
-import employeesModel from "../models/employee.js";
+import employeesModel from "../models/employees.js";
 import bcryptjs from "bcryptjs"; // Encriptar
 import jsonwebtoken from "jsonwebtoken"; // generar token
 import { config } from "../config.js";
@@ -21,21 +21,21 @@ loginController.login = async (req, res) => {
             correo === config.ADMIN.emailAdmin && 
             contrasenia === config.ADMIN.password
         ) {
-            userType = "Admin"
-            userFound = {_id: "Admin"};
+            userType = "admin"
+            userFound = {_id: "admin"};
         }
         else {
             userFound = await employeesModel.findOne({correo})
-            userType = "Employee";
+            userType = "employee";
 
             if(!userFound) {
                 userFound = await customersModel.findOne({correo});
-                userType = "Customer";
+                userType = "customer";
             }
         }
 
-        if(userType !== "Admin") {
-            const isMatch = await bcryptjs.compare(contrasenia, userFound.contrasenia);
+        if(userType !== "admin") {
+            const isMatch = await bcryptjs.compare(contrasenia, userFound.constrasenia);
             if(!isMatch) {
                 return res.json({message: "Invalid password"})
             }

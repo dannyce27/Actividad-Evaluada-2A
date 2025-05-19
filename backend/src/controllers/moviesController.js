@@ -1,4 +1,4 @@
-import {v2 as cloudinary} from "cloudinary"
+import { v2 as cloudinary } from "cloudinary"
 
 import moviesModel from "../models/movies.js"
 
@@ -22,28 +22,28 @@ moviesController.getMovies = async (req, res) => {
 }
 
 moviesController.insertMovies = async (req, res) => {
-    const {titulo, descripcion, director, genero, anio, duracion} = req.body;
+    const { titulo, descripcion, director, genero, anio, duracion } = req.body;
 
     let imageURL = "";
 
     if (req.file) {
         const result = await cloudinary.uploader.upload(req.file.path, {
             folder: "public",
-            allowed_formats: ["jpg", "png", "jpeg", "webp"] 
+            allowed_formats: ["jpg", "png", "jpeg", "webp"]
         });
 
         imageURL = result.secure_url;
     }
 
-    const newMovie = new moviesModel({titulo, descripcion, director, genero, anio, duracion, imagen: imageURL});
+    const newMovie = new moviesModel({ titulo, descripcion, director, genero, anio, duracion, imagen: imageURL });
     await newMovie.save();
 
-    res.json({message: "Movie saved"})
+    res.json({ message: "Movie saved" })
 };
 
 
 moviesController.deleteMovie = async (req, res) => {
-    const deleteMovie  = await moviesModel.findByIdAndDelete(req.params.id);
+    const deleteMovie = await moviesModel.findByIdAndDelete(req.params.id);
     if (!deleteMovie) {
         return res.status(404).json({ message: "Movie cannot be find" });
     }
@@ -59,7 +59,7 @@ moviesController.updateMovies = async (req, res) => {
     if (req.file) {
         const result = await cloudinary.uploader.upload(req.file.path, {
             folder: "public",
-            allowed_formats: ["jpg", "png", "jpeg", "webp"] 
+            allowed_formats: ["jpg", "png", "jpeg", "webp"]
         });
 
         imagenURL = result.secure_url;

@@ -38,10 +38,6 @@ const employeeSchema = new Schema ({
     DUI: {
         type: String,
         require: true,
-    },
-    isVerified: {
-        type: Boolean,
-        require: true,
     }
     
 
